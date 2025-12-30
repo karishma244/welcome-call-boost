@@ -1,38 +1,25 @@
-import { useRef } from "react";
 import Header from "@/components/Header";
-import UrgencyBar from "@/components/UrgencyBar";
 import SuccessCard from "@/components/SuccessCard";
-import StepFlow from "@/components/StepFlow";
-import CalendarBooking from "@/components/CalendarBooking";
-import ValueCards from "@/components/ValueCards";
-import SocialProof from "@/components/SocialProof";
-import FinalCTA from "@/components/FinalCTA";
-import ChatbotIcon from "@/components/ChatbotIcon";
+import FounderMessage from "@/components/FounderMessage";
+import NextSteps from "@/components/NextSteps";
+import TrustSection from "@/components/TrustSection";
+import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
-  const calendarRef = useRef<HTMLElement>(null);
-
-  const scrollToCalendar = () => {
-    calendarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <UrgencyBar />
       
-      <main>
+      <main className="pt-20">
         <SuccessCard />
-        <StepFlow onBookCallClick={scrollToCalendar} />
-        <CalendarBooking ref={calendarRef} />
-        <ValueCards />
-        <SocialProof />
-        <FinalCTA onBookCallClick={scrollToCalendar} />
+        <FounderMessage />
+        <NextSteps />
+        <TrustSection />
+        <CTASection />
       </main>
 
       <Footer />
-      <ChatbotIcon />
     </div>
   );
 };
