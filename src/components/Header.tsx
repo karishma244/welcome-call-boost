@@ -1,39 +1,31 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { Home } from "lucide-react";
 
 const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-soft">
-            <span className="text-primary-foreground font-bold text-lg">S</span>
+            <span className="text-primary-foreground font-bold text-lg">F</span>
           </div>
-          <span className="font-bold text-xl text-foreground">ScaleUp</span>
+          <span className="font-bold text-xl text-foreground">Fiale Technologies</span>
         </div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          <a 
-            href="#" 
-            className="text-muted-foreground hover:text-foreground transition-colors duration-200 font-medium"
+        <nav className="flex items-center gap-4">
+          <Button 
+            variant="ghost" 
+            className="text-muted-foreground hover:text-foreground transition-colors"
+            asChild
           >
-            Home
-          </a>
-          <Button className="gradient-primary text-primary-foreground hover:opacity-90 transition-opacity shadow-soft btn-glow group">
-            Book Your Call
-            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <a href="/">
+              <Home className="w-4 h-4 mr-2" />
+              Home
+            </a>
           </Button>
         </nav>
-
-        {/* Mobile CTA */}
-        <Button 
-          size="sm" 
-          className="md:hidden gradient-primary text-primary-foreground shadow-soft"
-        >
-          Book Call
-        </Button>
       </div>
     </header>
   );
