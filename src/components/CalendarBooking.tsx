@@ -1,5 +1,5 @@
 import { useState, forwardRef } from "react";
-import { ChevronLeft, ChevronRight, Clock, Check, Calendar } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, Check, Calendar, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const CalendarBooking = forwardRef<HTMLElement>((_, ref) => {
@@ -71,44 +71,52 @@ const CalendarBooking = forwardRef<HTMLElement>((_, ref) => {
   };
 
   return (
-    <section ref={ref} className="py-16 px-4" id="booking">
-      <div className="container mx-auto max-w-5xl">
-        <div className="text-center mb-10 fade-in-up">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Book Your Free Strategy Call
+    <section ref={ref} className="py-20 px-4 bg-muted/30 relative overflow-hidden" id="booking">
+      {/* Background decorations */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
+
+      <div className="container mx-auto max-w-5xl relative z-10">
+        <div className="text-center mb-12 fade-in-up">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">
+            <Calendar className="w-4 h-4" />
+            Schedule Your Call
+          </div>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-foreground mb-4">
+            Book Your <span className="text-shimmer">Free Consultation</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             Select a date and time that works best for you. All calls are 30 minutes with our expert team.
           </p>
         </div>
 
-        <div className="glass-card p-6 md:p-8 scale-in">
-          <div className="grid lg:grid-cols-2 gap-8">
+        <div className="glass-card-elevated p-8 md:p-10 scale-in">
+          <div className="grid lg:grid-cols-2 gap-10">
             {/* Calendar */}
             <div className="space-y-6">
               {/* Month Navigation */}
               <div className="flex items-center justify-between">
                 <button
                   onClick={() => navigateMonth('prev')}
-                  className="w-10 h-10 rounded-xl bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+                  className="w-12 h-12 rounded-xl bg-muted hover:bg-primary/10 flex items-center justify-center transition-all hover:scale-105"
                 >
-                  <ChevronLeft className="w-5 h-5 text-foreground" />
+                  <ChevronLeft className="w-6 h-6 text-foreground" />
                 </button>
-                <h3 className="text-xl font-bold text-foreground">
+                <h3 className="text-2xl font-bold text-foreground">
                   {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
                 </h3>
                 <button
                   onClick={() => navigateMonth('next')}
-                  className="w-10 h-10 rounded-xl bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+                  className="w-12 h-12 rounded-xl bg-muted hover:bg-primary/10 flex items-center justify-center transition-all hover:scale-105"
                 >
-                  <ChevronRight className="w-5 h-5 text-foreground" />
+                  <ChevronRight className="w-6 h-6 text-foreground" />
                 </button>
               </div>
 
               {/* Day Headers */}
               <div className="grid grid-cols-7 gap-2">
                 {dayNames.map(day => (
-                  <div key={day} className="text-center text-sm font-medium text-muted-foreground py-2">
+                  <div key={day} className="text-center text-sm font-semibold text-muted-foreground py-3">
                     {day}
                   </div>
                 ))}
@@ -135,12 +143,12 @@ const CalendarBooking = forwardRef<HTMLElement>((_, ref) => {
                       onClick={() => handleDateSelect(day)}
                       disabled={!isSelectable}
                       className={`
-                        aspect-square rounded-xl flex items-center justify-center text-sm font-medium transition-all duration-200
+                        aspect-square rounded-xl flex items-center justify-center text-sm font-semibold transition-all duration-300
                         ${isSelected 
-                          ? 'gradient-primary text-primary-foreground shadow-soft scale-105' 
+                          ? 'gradient-primary text-primary-foreground shadow-glow scale-110' 
                           : isSelectable
-                            ? 'bg-muted/50 hover:bg-primary/10 hover:text-primary text-foreground'
-                            : 'text-muted-foreground/40 cursor-not-allowed'
+                            ? 'bg-muted/50 hover:bg-primary/20 hover:text-primary hover:scale-105 text-foreground'
+                            : 'text-muted-foreground/30 cursor-not-allowed'
                         }
                       `}
                     >
@@ -155,26 +163,31 @@ const CalendarBooking = forwardRef<HTMLElement>((_, ref) => {
             <div className="space-y-6">
               {selectedDate ? (
                 <>
-                  <div className="flex items-center gap-3 p-4 bg-muted/50 rounded-xl">
-                    <Clock className="w-5 h-5 text-primary" />
+                  <div className="flex items-center gap-4 p-5 bg-primary/10 rounded-2xl border border-primary/20">
+                    <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center">
+                      <Clock className="w-6 h-6 text-primary-foreground" />
+                    </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">Selected Date</p>
-                      <p className="font-semibold text-foreground">{formatSelectedDate()}</p>
+                      <p className="text-sm text-muted-foreground font-medium">Selected Date</p>
+                      <p className="font-bold text-lg text-foreground">{formatSelectedDate()}</p>
                     </div>
                   </div>
 
                   <div>
-                    <h4 className="font-semibold text-foreground mb-4">Available Times</h4>
-                    <div className="grid grid-cols-2 gap-3">
+                    <h4 className="font-bold text-lg text-foreground mb-5 flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-warning" />
+                      Available Time Slots
+                    </h4>
+                    <div className="grid grid-cols-2 gap-4">
                       {timeSlots.map(time => (
                         <button
                           key={time}
                           onClick={() => setSelectedTime(time)}
                           className={`
-                            p-3 rounded-xl text-sm font-medium transition-all duration-200
+                            p-4 rounded-xl text-sm font-semibold transition-all duration-300
                             ${selectedTime === time
-                              ? 'gradient-primary text-primary-foreground shadow-soft'
-                              : 'bg-muted/50 hover:bg-primary/10 hover:text-primary text-foreground border border-border/50'
+                              ? 'gradient-primary text-primary-foreground shadow-glow scale-105'
+                              : 'bg-muted/50 hover:bg-primary/15 hover:text-primary hover:scale-102 text-foreground border border-border/50 hover:border-primary/30'
                             }
                           `}
                         >
@@ -185,22 +198,24 @@ const CalendarBooking = forwardRef<HTMLElement>((_, ref) => {
                   </div>
 
                   {selectedTime && (
-                    <div className="pt-4 fade-in-up">
-                      <Button className="w-full gradient-primary text-primary-foreground shadow-soft btn-glow text-lg py-6 group">
-                        <Check className="w-5 h-5 mr-2" />
+                    <div className="pt-6 fade-in-up">
+                      <Button className="w-full gradient-primary text-primary-foreground shadow-glow-strong btn-glow text-lg py-7 group">
+                        <Check className="w-6 h-6 mr-3" />
                         Confirm Booking
                       </Button>
-                      <p className="text-center text-sm text-muted-foreground mt-3">
+                      <p className="text-center text-muted-foreground mt-4 font-medium">
                         {formatSelectedDate()} at {selectedTime}
                       </p>
                     </div>
                   )}
                 </>
               ) : (
-                <div className="h-full flex items-center justify-center text-center p-8">
+                <div className="h-full flex items-center justify-center text-center p-10">
                   <div>
-                    <Calendar className="w-16 h-16 text-primary/30 mx-auto mb-4" />
-                    <p className="text-muted-foreground">
+                    <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                      <Calendar className="w-10 h-10 text-primary/40" />
+                    </div>
+                    <p className="text-lg text-muted-foreground font-medium">
                       Select a date from the calendar to see available time slots
                     </p>
                   </div>
